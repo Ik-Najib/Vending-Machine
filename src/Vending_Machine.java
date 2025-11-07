@@ -24,7 +24,7 @@ public class Vending_Machine {
                     afficherProduits();
                     break;
                 case 2 :
-                    System.out.println("Fonction d'achat (à implémenter par Dev2)");
+                    acheterProduit(input);
                     break;
                 case 3 :
                     System.out.println("Merci et à bientôt !");
@@ -34,6 +34,8 @@ public class Vending_Machine {
                     break;
             }
         } while (choice != 3);
+
+        input.close();
     }
 
     public static void afficherProduits() {
@@ -42,5 +44,41 @@ public class Vending_Machine {
             System.out.println((i + 1) + ". " + produits.get(i) + " (" + prix.get(i) + " MAD) - Stock : " + stock.get(i));
         }
         System.out.println();
+    }
+
+    public static void acheterProduit(Scanner sc) {
+        System.out.println("\n=== Achat d’un produit ===");
+        for (int i = 0; i < produits.size(); i++) {
+            System.out.println((i + 1) + ". " + produits.get(i) + " (" + prix.get(i) + " MAD) - Stock : " + stock.get(i));
+        }
+
+        System.out.print("\nEntrez le numéro du produit : ");
+        int choix = sc.nextInt();
+
+        if (choix < 1 || choix > produits.size()) {
+            System.out.println("Numéro invalide !");
+            return;
+        }
+
+        int index = choix - 1;
+        if (stock.get(index) == 0) {
+            System.out.println("Produit en rupture de stock !");
+            return;
+        }
+
+        System.out.print("Entrez le montant inséré (MAD) : ");
+        double montant = sc.nextDouble();
+        double prixProduit = prix.get(index);
+
+        if (montant < prixProduit) {
+            System.out.println("Montant insuffisant. Il manque " + (prixProduit - montant) + " MAD.");
+            return;
+        }
+
+        stock.set(index, stock.get(index) - 1);
+        double monnaie = montant - prixProduit;
+
+        System.out.println("Achat réussi : " + produits.get(index));
+        System.out.println("Monnaie rendue : " + monnaie + " MAD");
     }
 }
