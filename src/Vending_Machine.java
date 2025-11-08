@@ -81,4 +81,85 @@ public class Vending_Machine {
         System.out.println("Achat réussi : " + produits.get(index));
         System.out.println("Monnaie rendue : " + monnaie + " MAD");
     }
+
+    public static void updatestock() {
+        Scanner scan = new Scanner(System.in);
+        int choix;
+        System.out.println("=====Mise a jour le stock et les prix======");
+        System.out.println("1 = mise a jour le stock.");
+        System.out.println("2 = ajoute un nouveau article.");
+        System.out.println("3 = mise a jour les prix.");
+        choix = scan.nextInt();
+
+        if (choix == 1) {
+            MajStock();
+        } else if (choix == 2) {
+            AjArticle();
+        } else if (choix == 3) {
+            Majprix();
+        } else {
+            System.out.println("Choix invalide.");
+        }
+    }
+
+    public static void MajStock() {
+        Scanner scann = new Scanner(System.in);
+        System.out.println("===choiser un article.==");
+        for (int i = 0; i < produits.size(); i++) {
+            System.out.println((i + 1) + ". " + produits.get(i) + " (" + prix.get(i) + " MAD) - Stock : " + stock.get(i));
+        }
+        int article = scann.nextInt() - 1;
+
+        if (article >= produits.size() || article < 0) {
+            System.out.println("article n'existe pas.");
+            return;
+        } else {
+            int quant;
+            System.out.println("entrer la quantité: ");
+            quant = scann.nextInt();
+            stock.set(article, quant);
+            System.out.println("Stock mis à jour !");
+        }
+    }
+
+    public static void AjArticle() {
+        Scanner sca = new Scanner(System.in);
+        String nom;
+        System.out.println("entre le nom de produit: ");
+        nom = sca.next();
+        double p;
+        System.out.println("entre le prix: ");
+        p = sca.nextDouble();
+        int s;
+        System.out.println("entre le stock: ");
+        s = sca.nextInt();
+
+        produits.add(nom);
+        prix.add(p);
+        stock.add(s);
+        System.out.println("Article ajouté avec succès !");
+    }
+
+    public static void Majprix() {
+        Scanner scann = new Scanner(System.in);
+        System.out.println("===choiser un article.==");
+        for (int i = 0; i < produits.size(); i++) {
+            System.out.println((i + 1) + ". " + produits.get(i) + " (" + prix.get(i) + " MAD) - Stock : " + stock.get(i));
+        }
+        int article = scann.nextInt() - 1;
+
+        if (article >= produits.size() || article < 0) {
+            System.out.println("article n'existe pas.");
+        } else {
+            double nprix;
+            System.out.println("entrer le prix: ");
+            nprix = scann.nextDouble();
+            prix.set(article, nprix);
+            System.out.println("Prix mis à jour !");
+        }
+    }
+
+    public static void main(String[] args) {
+        updatestock();
+    }
 }
