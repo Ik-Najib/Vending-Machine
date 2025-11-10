@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class Vending_Machine {
     static ArrayList<String> produits = new ArrayList<>(List.of("Eau", "Soda", "Chips", "Chocolat"));
     static ArrayList<Double> prix = new ArrayList<>(List.of(5.0, 8.0, 12.0, 15.0));
